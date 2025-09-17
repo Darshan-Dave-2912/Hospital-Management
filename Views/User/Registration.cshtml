@@ -1,0 +1,126 @@
+﻿@model User
+@{
+    Layout = "";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+    <title>Hospital Management - Register</title>
+
+    <style>
+        keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .register-card {
+            animation: fadeInUp 0.8s ease-in-out;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100"
+      style="background: linear-gradient(135deg, #e0f7fa, #f1f8ff);">
+
+    <div class="card register-card shadow-lg p-4 border-0"
+         style="max-width: 500px; width: 100%; border-radius: 16px;">
+
+        <div class="text-center mb-4">
+            <i class="bi bi-person-plus fs-1 text-primary"></i>
+            <h4 class="fw-bold text-primary">Create Account</h4>
+            <p class="text-muted small">Register to access Hospital Management System</p>
+        </div>
+
+        <form asp-action="AddEdit" asp-controller="User" method="post" class="row g-3">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            <input type="hidden" asp-for="UserId" />
+
+            <!-- Username -->
+            <div class="col-12">
+                <label class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" asp-for="Username" placeholder="Choose a username" />
+                </div>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="col-12">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Enter password" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="col-12">
+                <label class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Enter email" />
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Mobile -->
+            <div class="col-12">
+                <label class="form-label">Mobile No</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Enter mobile number" />
+                </div>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Profile Photo -->
+            <div class="col-12">
+                <label class="form-label">Profile Photo</label>
+                <input type="file" class="form-control" asp-for="Photo" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+
+            <!-- Hidden fields -->
+            <input type="hidden" asp-for="Created" />
+            <input type="hidden" asp-for="Modified" />
+
+            <!-- Submit -->
+            <div class="col-12 d-grid">
+                <button type="submit" class="btn btn-primary btn-lg shadow-sm">Register</button>
+            </div>
+
+            <!-- Redirect to Login -->
+            <div class="text-center mt-3">
+                <small class="text-muted">Already have an account?
+                    <a asp-controller="User" asp-action="Login" class="text-primary fw-bold">Login</a>
+                </small>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

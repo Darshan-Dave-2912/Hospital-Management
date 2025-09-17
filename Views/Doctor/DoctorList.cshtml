@@ -1,0 +1,87 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "Doctor List";
+}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Doctor</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Doctor List</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Doctor Table</h5>
+            <a asp-action="AddDoctor" asp-controller="Doctor" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-plus-lg"></i> Add New Doctor
+            </a>
+        </div>
+
+        <div class="card-body">
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle datatable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Doctor ID</th>
+                            <th scope="col">Doctor Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Qualification</th>
+                            <th scope="col">Specialization</th>
+                            <th scope="col">Is Active</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Modified</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DataRow row in Model.Rows)
+                        {
+                            <tr>
+                                <td>@row["DoctorID"]</td>
+                                <td>@row["Name"]</td>
+                                <td>@row["Phone"]</td>
+                                <td>@row["Email"]</td>
+                                <td>@row["Qualification"]</td>
+                                <td>@row["Specialization"]</td>
+                                <td>@row["IsActive"]</td>
+                                <td>@row["Created"]</td>
+                                <td>@row["Modified"]</td>
+                                <td>@row["UserName"]</td>
+                                <td class="text-center">
+                                    <a class="btn btn-outline-success btn-sm" asp-controller="Doctor" asp-action="AddDoctor" asp-route-DoctorId="@row["DoctorID"]" title="Edit">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm ms-1" asp-controller="Doctor" asp-action="Delete" asp-route-doctorid="@row["DoctorID"]" onclick="return confirm('Are you sure you want to delete this Doctor?');" title="Delete">
+                                        <i class="bi bi-x"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

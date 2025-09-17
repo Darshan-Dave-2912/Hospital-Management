@@ -1,0 +1,64 @@
+﻿@model Department
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Deprtment</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Department</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Department Form</h5>
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <!-- Vertical Form -->
+            <form class="row g-3" asp-action="AddEdit" asp-controller="Department" method="post">
+                <input type="hidden" class="form-control" asp-for="DepartmentId">
+
+                <div class="col-12">
+                    <label  class="form-label">Department Name</label>
+                    <input type="text" class="form-control" asp-for="Departmentname">
+                    <span asp-validation-for="Departmentname" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <input type="checkbox" asp-for="IsActive" />
+                    <label class="form-label">Is Active</label>
+                </div>
+
+                <input type="hidden" class="form-control" asp-for="Created" />
+
+                <input type="hidden" class="form-control" asp-for="Modified" />
+
+                <input type="hidden" class="form-control" asp-for="UserId"/>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a asp-action="DepartmentList" asp-controller="Department" class="btn btn-secondary ">Cancel</a>
+                </div>
+            </form><!-- Vertical Form -->
+
+        </div>
+    </div>
+
+    </main>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

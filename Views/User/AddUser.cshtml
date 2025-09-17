@@ -1,0 +1,82 @@
+﻿@model User
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Users</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item active">Users</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">User Form</h5>
+
+            <!-- Vertical Form -->
+            <form class="row g-3"
+                  asp-action="AddEdit"
+                  asp-controller="User"
+                  method="post"
+                  enctype="multipart/form-data">
+                <!-- important for file upload -->
+
+                <input type="hidden" asp-for="UserId" />
+
+                <div class="col-12">
+                    <label class="form-label">User Name</label>
+                    <input type="text" class="form-control" asp-for="Username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" asp-for="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Mobile No</label>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <input type="checkbox" asp-for="IsActive" />
+                    <label class="form-label">Is Active</label>
+                </div>
+
+                <!-- File Upload -->
+                <div class="col-12">
+                    <label class="form-label">Profile Photo</label>
+                    <input type="file" class="form-control" asp-for="Photo" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+
+                <!-- Show existing photo if editing -->
+                @if (!string.IsNullOrEmpty(Model?.PhotoPath))
+                {
+                    <div class="col-12">
+                        <label class="form-label">Current Photo</label><br />
+                        <img src="@Model.PhotoPath" alt="User Photo" width="100" height="100" class="img-thumbnail" />
+                    </div>
+                }
+
+                <input type="hidden" class="form-control" asp-for="Created" />
+                <input type="hidden" class="form-control" asp-for="Modified" />
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-success">Submit</button>
+                </div>
+            </form><!-- Vertical Form -->
+        </div>
+    </div>
+</main>

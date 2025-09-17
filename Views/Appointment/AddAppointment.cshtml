@@ -1,0 +1,110 @@
+﻿@model Appointment
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Appointment</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Add Appointment</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Appointment Form</h5>
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <form class="row g-3" asp-action="AddEdit" asp-controller="Appointment" method="post">
+
+                <div class="col-12">
+                    <input type="hidden" class="form-control" asp-for="AppointmentId" />
+                </div>
+
+                <div class="col-4">
+                    <label class="form-label">Select Doctor</label>
+                    <select class="form-select" asp-for="DoctorId">
+                        <option value="">Select Doctor</option>
+                        @foreach (var doc in ViewBag.DoctorList)
+                        {
+                            <option value="@doc.DoctorID">@doc.name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+                <div class="col-4">
+                    <label class="form-label">Select Patient</label>
+                    <select class="form-select" asp-for="PatientId">
+                        <option value="">Select Patient</option>
+                        @foreach (var doc in ViewBag.PatientList)
+                        {
+                            <option value="@doc.PatientID">@doc.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </div>
+                
+
+                <div class="col-4">
+                    <label class="form-label">Appointment Date</label>
+                    <input type="date" class="form-control" asp-for="AppointmentDate" />
+                    <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Appointment Status</label><br />
+                    <input class="form-check-input" type="radio" value="Scheduled" id="status" asp-for="AppointmentStatus">
+                    <label class="form-check-label" for="flexRadioDefault1">Scheduled</label>
+                    <input class="form-check-input" type="radio" value="Completed" id="status" asp-for="AppointmentStatus">
+                    <label class="form-check-label" for="flexRadioDefault1">Completed</label>
+                    <span asp-validation-for="AppointmentStatus" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" asp-for="Description" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Special Remarks</label>
+                    <input type="text" class="form-control" asp-for="SpecialRemarks" />
+                    <span asp-validation-for="SpecialRemarks" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <input type="hidden" class="form-control" asp-for="Created" />
+                </div>
+
+                <div class="col-12">
+                    <input type="hidden" class="form-control" asp-for="Modified" />
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Total Consulted Amount</label>
+                    <input type="text" class="form-control" asp-for="TotalConsultedAmount" />
+                    <span asp-validation-for="TotalConsultedAmount" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary col-2">Submit</button>
+                    <a asp-action="AppointmentList" asp-controller="Appointment" class="btn btn-secondary col-2">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
